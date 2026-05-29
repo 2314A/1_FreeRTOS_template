@@ -58,7 +58,10 @@ void vApplicationTickHook(void)
 {
   FreeRTOSRunTimeTicks++;
   
-  aandle_t xHigherPriorityTaskWoken = pdFALSE;
+  BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+  vTaskNotifyGiveFromISR(ledTaskHandle, &xHigherPriorityTaskWoken
+  );
+  portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
 
